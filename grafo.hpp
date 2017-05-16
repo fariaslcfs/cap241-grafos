@@ -6,12 +6,17 @@
 #include <map>
 #include <utility>
 #include <iostream>
+#include <initializer_list>
+#include <iterator>
 
-using namespace std;
 
 class Grafo {
     public:
     
+	Grafo();
+	explicit Grafo(std::initializer_list<int> initVertices, std::initializer_list<std::pair<int, int>> initPares, std::initializer_list<int> initPesos);
+	~Grafo();
+
     void inserirVertice(int valor);
     void inserirAresta(int origem, int destino, int peso);
     bool possuiAresta(int origem, int destino);
@@ -20,43 +25,79 @@ class Grafo {
     void imprimir();
 
     private:
-    list<int> _vertices;
-    map<pair<int, int>, int> _arestas;
+    std::list<int> vertices_;
+    std::map<std::pair<int, int>, int> arestas_;
+
 };
 
-void Grafo::inserirVertice(int valor) {
-    _vertices.push_back(valor);
+
+Grafo::Grafo()
+{
 }
 
+
+Grafo::Grafo(std::initializer_list<int> initVertices, std::initializer_list<std::pair<int, int>> initPares, std::initializer_list<int> initPesos)
+{
+	auto itpai = initPares.begin();
+	auto itpaf = initPares.end();
+	auto itpei = initPesos.begin();
+
+	for(auto itv = initVertices.begin(); itv != initVertices.end(); ++itv)
+	{
+		inserirVertice(*itv);
+	}
+
+	while(itpai != itpaf)
+	{
+		inserirAresta(itpai->first, itpai->second, *itpei);
+		 ++itpai; ++itpei;
+	}
+}
+
+
+Grafo::~Grafo()
+{
+}
+
+
+void Grafo::inserirVertice(int valor) {
+    vertices_.push_back(valor);
+}
+
+
 void Grafo::inserirAresta(int origem, int destino, int peso) {
-    pair<int, int> origemDestino = make_pair(origem, destino);
+	auto origemDestino = std::make_pair(origem, destino);
 
     if (!possuiVertice(origem) || !possuiVertice(destino)) {
         return;
     }
-
-    _arestas[origemDestino] = peso;
+    arestas_[origemDestino] = peso;
 }
+
 
 bool Grafo::possuiVertice(int valor) {
-    auto vertice = find(_vertices.begin(), _vertices.end(), valor);
-    return vertice != _vertices.end();
+    auto vertice = std::find(vertices_.begin(), vertices_.end(), valor);
+    return vertice != vertices_.end();
 }
+
 
 bool Grafo::possuiAresta(int origem, int destino) {
-    pair<int, int> origemDestino = make_pair(origem, destino);
-    return _arestas.count(origemDestino) == 1;
+	auto origemDestino = std::make_pair(origem, destino);
+    return arestas_.count(origemDestino) == 1;
 }
+
 
 void Grafo::removerAresta(int origem, int destino) {
-    pair<int, int> origemDestino = make_pair(origem, destino);
-    _arestas.erase(origemDestino);
+	auto origemDestino = std::make_pair(origem, destino);
+    arestas_.erase(origemDestino);
 }
 
+
 void Grafo::imprimir() {
-    for (auto const &item : _arestas) {
-        cout << item.first.first << " === " << item.second << " ===> " << item.first.second << endl;
+    for (auto const &item : arestas_) {
+    	std::cout << item.first.first << " === " << item.second << " ===> " << item.first.second << std::endl;
     }
 }
+
 
 #endif //__GRAFO_HPP__
