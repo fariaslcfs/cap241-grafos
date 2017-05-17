@@ -1,9 +1,8 @@
 #include "grafo.hpp"
 #include <iostream>
 
-using namespace std;
-
-int main() {
+int main()
+{
     Grafo grafo;
     
     grafo.inserirVertice(0);
@@ -16,21 +15,32 @@ int main() {
     grafo.inserirAresta(2, 3, 10);
     grafo.inserirAresta(3, 0, 10);
 
+
+    Grafo grafo1 {{0,1,2,3}, {{0,1}, {1,2}, {2,3}, {3,0}}, {10, 10, 10, 10}};
+
+
     if (!grafo.possuiAresta(0, 1)) {
-        cout << "Aresta 0 -> 1 não encontrada!" << endl;
+    	std::cout << "Aresta 0 -> 1 não encontrada!" << std::endl;
     }
 
     if (grafo.possuiAresta(1, 0)) {
-        cout << "Aresta 1 -> 0 não deveria existir!" << endl;
+    	std::cout << "Aresta 1 -> 0 não deveria existir!" << std::endl;
     }
 
     grafo.removerAresta(0, 1);
 
     if (grafo.possuiAresta(0, 1)) {
-        cout << "Aresta 0 -> 1 deveria ter sido removida!" << endl;
+    	std::cout << "Aresta 0 -> 1 deveria ter sido removida!" << std::endl;
     }
 
     grafo.imprimir();
     
+    std::cout << std::endl;
+
+    grafo1.removerAresta(1,2);
+
+    grafo1.imprimir();
+
+
     return 0;
 }
