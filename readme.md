@@ -10,3 +10,6 @@ g++ -std=c++11 bfs.cpp graph/*.cpp -o bfs
 
 ### Busca em Profundidade
 g++ -std=c++11 dfs.cpp graph/*.cpp -o dfs
+
+### Componentes Conectados
+g++ -std=c++11 connected.cpp graph/*.cpp -o connected
