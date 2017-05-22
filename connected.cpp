@@ -1,36 +1,9 @@
 #include "graph/graph.hpp"
 #include "graph/graph_algorithms.hpp"
 
+#include "demo_graphs.hpp"
+
 #include <iostream>
-
-Graph* graph_fully_connected() {
-    Graph *g = new Graph(9);
-    
-    g->insertEdge(0, 1, 1.);
-    g->insertEdge(1, 2, 1.);
-    g->insertEdge(2, 3, 1.);
-    g->insertEdge(1, 4, 1.);
-    g->insertEdge(4, 5, 1.);
-    g->insertEdge(0, 5, 1.);
-    g->insertEdge(0, 6, 1.);
-    g->insertEdge(6, 7, 1.);
-    g->insertEdge(6, 8, 1.);
-    
-    return g;
-}
-
-Graph* graph_with_3_components() {
-    Graph *g = new Graph(9);
-    
-    g->insertEdge(0, 1, 1.);
-    g->insertEdge(1, 2, 1.);
-    g->insertEdge(2, 3, 1.);
-    g->insertEdge(1, 4, 1.);
-    g->insertEdge(6, 7, 1.);
-    g->insertEdge(6, 8, 1.);
-    
-    return g;
-}
 
 void print_components(Graph *g) {
     std::vector<std::vector<int>> components = graph_connected_components(g);
@@ -49,14 +22,16 @@ void print_components(Graph *g) {
 }
 
 int main(){
-    Graph *g1comp = graph_fully_connected();
+    Graph *g = demo::fully_connected_9nodes_9edges();
     
     std::cout << "\nExemplo de grafo totalmente conectado (1 componente):" << std::endl;
-    print_components(g1comp);
+    print_components(g);
+    delete g;
 
-    Graph *g3comp = graph_with_3_components();
+    g = demo::disconnected_3components_9nodes_6edges();
     std::cout << "\nExemplo de grafo com 3 componentes:" << std::endl;
-    print_components(g3comp);
+    print_components(g);
+    delete g;
 
     return 0;
 }
