@@ -5,7 +5,7 @@ int __reach(graph *g, int u, int v, int* visited);
 
 
 int reach(graph *g, int u, int v){
-    node *w;
+    Node *w;
     int *visited;
     size_t i;
     
@@ -26,7 +26,7 @@ int reach(graph *g, int u, int v){
 }
 
 int __reach(graph *g, int u, int v, int* visited){
-    node *w;
+    Node *w;
     visited[u] = 1;
 
     if(u == v){
@@ -49,7 +49,7 @@ int __reach(graph *g, int u, int v, int* visited){
 void __dfs(graph *g, int u, int *visited, int *count);
 
 int *dfs(graph *g, int u){
-    node *w;
+    Node *w;
     int *visited;
     size_t i;
     int count = 0;
@@ -72,7 +72,7 @@ int *dfs(graph *g, int u){
 }
 
 void __dfs(graph *g, int u, int* visited, int *count){
-    node *w;
+    Node *w;
     visited[u] = (*count);
     *count = (*count)+1;
 
@@ -125,7 +125,7 @@ int *bfs(graph *g, int u){
     size_t i;
     int count = 0;
     int v;
-    node *w;
+    Node *w;
     queue* q = queue_create();
     visited = (int*) malloc(sizeof(int)*g->size);
     for(i=0; i<g->size; ++i){

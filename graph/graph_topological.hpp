@@ -9,7 +9,7 @@ void topo_order(graph *g, int i, std::vector<bool> &visited, std::stack<int> &to
     if (! visited[i]) { //Se o vértice ainda não foi visitado
         visited[i] = true; //marque-o como visitado
         if (g->nodes[i] != NULL) { // e se houverem vértices adjascentes
-            node *n = g->nodes[i];
+            Node *n = g->nodes[i];
             while (n != NULL) {
                 topo_order(g, n->id, visited, topo); //realize a ordenação topológica para os vértices adjascentes primeiro
                 n = n->next; //próximo vértice adjacente

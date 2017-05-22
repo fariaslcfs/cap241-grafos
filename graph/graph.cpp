@@ -4,7 +4,7 @@ graph* create_graph(size_t size){
     size_t i;
     graph* g = (graph*) malloc(sizeof(graph));
     g->size = size;
-    g->nodes = (node**) malloc(sizeof(node*)*size);
+    g->nodes = (Node**) malloc(sizeof(Node*)*size);
     for(i=0; i<size; ++i){
         g->nodes[i] = NULL;
     }
@@ -15,23 +15,23 @@ void free_graph(graph* g){
    
 }
 
-node *create_node(int id, float weight, node* next){
-    node* n = (node*) malloc(sizeof(node));
+Node *create_node(int id, float weight, Node* next){
+    Node* n = (Node*) malloc(sizeof(Node));
     n->id = id;
     n->weight = weight;
     n->next = next;
     return n;
 }
 
-void free_node(node* n){
+void free_node(Node* n){
     if(n != NULL){
         free(n);
     }
 }
 
 int insert_edge(graph* g, int n1, int n2, float weight){
-    node* n;
-    node* w;
+    Node* n;
+    Node* w;
     if(exists_edge(g, n1, n2) == 0) {
         if(n1 < g->size && n2 < g->size) {
         
@@ -54,8 +54,8 @@ int insert_edge(graph* g, int n1, int n2, float weight){
     return 0;
 }
 int remove_edge(graph* g, int n1, int n2){
-    node* n;
-    node* prev = NULL;
+    Node* n;
+    Node* prev = NULL;
     for(n=g->nodes[n1]; n!= NULL; n= n->next){
         if(n->id == n2) {
             if(prev == NULL){
@@ -72,7 +72,7 @@ int remove_edge(graph* g, int n1, int n2){
 }
 
 int exists_edge(graph* g, int n1, int n2){
-    node* n;
+    Node* n;
     if(n1 < g->size && n2 < g->size) {
         for(n = g->nodes[n1]; n!=NULL; n = n->next){
              if(n->id == n2){
@@ -83,7 +83,7 @@ int exists_edge(graph* g, int n1, int n2){
     return 0;
 }
 
-node* adjacent_edges(graph* g, int n){
+Node* adjacent_edges(graph* g, int n){
     if(n < g->size) {
         return g->nodes[n];
     }
@@ -92,7 +92,7 @@ node* adjacent_edges(graph* g, int n){
 
 void print_graph(graph* g){
     int i;
-    node* n;
+    Node* n;
     for(i=0; i<g->size; ++i){
         if(g->nodes[i] != NULL){
             printf("#%d: ", i);

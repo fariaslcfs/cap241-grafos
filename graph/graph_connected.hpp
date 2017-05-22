@@ -20,7 +20,7 @@ vetor um componente conectado.
 std::vector<std::vector<int>> graph_connected_components(graph *g) {
     int v;
     std::vector<std::vector<int>> components;
-    node *w;
+    Node *w;
     std::queue<int> q;
     std::map<int, bool> visited;
     

@@ -5,14 +5,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct node_{
-    struct node_* next;
+class Node 
+{
+    public:
+    Node *next;
     int id;
     float weight;
-} node;
+};
 
 typedef struct {
-    node** nodes;
+    Node** nodes;
     size_t size;
 } graph;
 
@@ -20,15 +22,15 @@ typedef struct {
 graph* create_graph(size_t size);
 void free_graph(graph* g);
 
-node *create_node(int id, float weight, node* next);
-void free_node(node* n);
+Node *create_node(int id, float weight, Node *next);
+void free_node(Node* n);
 
 int insert_edge(graph* g, int n1, int n2, float weight);
 int remove_edge(graph* g, int n1, int n2);
 
 int exists_edge(graph* g, int n1, int n2);
 
-node* adjacent_edges(graph* g, int n);
+Node *adjacent_edges(graph* g, int n);
 
 void print_graph(graph* g);
 
