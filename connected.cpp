@@ -4,30 +4,30 @@
 #include <iostream>
 
 Graph* graph_fully_connected() {
-    Graph *g = create_graph(9);
+    Graph *g = new Graph(9);
     
-    insert_edge(g, 0, 1, 1.);
-    insert_edge(g, 1, 2, 1.);
-    insert_edge(g, 2, 3, 1.);
-    insert_edge(g, 1, 4, 1.);
-    insert_edge(g, 4, 5, 1.);
-    insert_edge(g, 0, 5, 1.);
-    insert_edge(g, 0, 6, 1.);
-    insert_edge(g, 6, 7, 1.);
-    insert_edge(g, 6, 8, 1.);
+    g->insertEdge(0, 1, 1.);
+    g->insertEdge(1, 2, 1.);
+    g->insertEdge(2, 3, 1.);
+    g->insertEdge(1, 4, 1.);
+    g->insertEdge(4, 5, 1.);
+    g->insertEdge(0, 5, 1.);
+    g->insertEdge(0, 6, 1.);
+    g->insertEdge(6, 7, 1.);
+    g->insertEdge(6, 8, 1.);
     
     return g;
 }
 
 Graph* graph_with_3_components() {
-    Graph *g = create_graph(9);
+    Graph *g = new Graph(9);
     
-    insert_edge(g, 0, 1, 1.);
-    insert_edge(g, 1, 2, 1.);
-    insert_edge(g, 2, 3, 1.);
-    insert_edge(g, 1, 4, 1.);
-    insert_edge(g, 6, 7, 1.);
-    insert_edge(g, 6, 8, 1.);
+    g->insertEdge(0, 1, 1.);
+    g->insertEdge(1, 2, 1.);
+    g->insertEdge(2, 3, 1.);
+    g->insertEdge(1, 4, 1.);
+    g->insertEdge(6, 7, 1.);
+    g->insertEdge(6, 8, 1.);
     
     return g;
 }

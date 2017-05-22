@@ -8,11 +8,11 @@
 
 int main(){
 
-    Graph *g = create_graph(8);
+    Graph *g = new Graph(8);
     
-    insert_edge(g, 0, 1, 1.);
-    insert_edge(g, 2, 6, 1.);
-    insert_edge(g, 4, 6, 1.);
+    g->insertEdge(0, 1, 1.);
+    g->insertEdge(2, 6, 1.);
+    g->insertEdge(4, 6, 1.);
     g->print();
     std::stack<int> t = graph_topological_order(g);
 

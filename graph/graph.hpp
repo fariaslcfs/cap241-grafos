@@ -115,9 +115,4 @@ void Graph::print() {
 }
 
 
-/*
-Funções legadas da implementação em C
-*/
-#include "graph_legacy.h"
-
 #endif /* __GRAPH_H__ */
