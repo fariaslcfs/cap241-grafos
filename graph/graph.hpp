@@ -1,37 +1,43 @@
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
-#include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stack>
+#include <vector>
 
-typedef struct node_{
+
+typedef struct node_
+{
     struct node_* next;
-    int id;
+    size_t id;
     float weight;
 } node;
 
-typedef struct {
-    node** nodes;
+typedef struct
+{
+    node **nodes;
     size_t size;
 } graph;
 
 
-graph* create_graph(size_t size);
-void free_graph(graph* g);
+graph * create_graph(size_t size);
+void free_graph(graph *);
 
-node *create_node(int id, float weight, node* next);
-void free_node(node* n);
+node *create_node(size_t, float, node *);
+void free_node(node *);
 
-int insert_edge(graph* g, int n1, int n2, float weight);
-int remove_edge(graph* g, int n1, int n2);
+size_t insert_edge(graph *, size_t, size_t, float weight);
+size_t remove_edge(graph *, size_t, size_t);
 
-int exists_edge(graph* g, int n1, int n2);
+size_t exists_edge(graph * g, size_t, size_t);
 
-node* adjacent_edges(graph* g, int n);
+node* adjacent_edges(graph *, size_t);
 
-void print_graph(graph* g);
+void prsize_t_graph(graph *);
 
 graph* create_demo_graph();
+
+bool has_Cicle(graph *);
 
 #endif /* __GRAPH_H__ */
