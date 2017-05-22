@@ -8,6 +8,9 @@
 class Node 
 {
     public:
+    Node(int _id, float _weight, Node *_next);
+    ~Node();
+
     Node *next;
     int id;
     float weight;
@@ -15,10 +18,17 @@ class Node
 
 class Graph {
     public:
+    Graph(size_t _size);
+    ~Graph();
+    int insertEdge(int n1, int n2, float weight);
+    int removeEdge(int n1, int n2);
+    int existsEdge(int n1, int n2);
+    Node *adjacentEdges(int n);
+    void print();
+
     Node** nodes;
     size_t size;
 };
-
 
 Graph* create_graph(size_t size);
 void free_graph(Graph* g);

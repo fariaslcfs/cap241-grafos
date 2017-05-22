@@ -1,65 +1,87 @@
 #include "graph.hpp"
 
-Graph* create_graph(size_t size){
-    size_t i;
-    Graph* g = (Graph*) malloc(sizeof(Graph));
-    g->size = size;
-    g->nodes = (Node**) malloc(sizeof(Node*)*size);
-    for(i=0; i<size; ++i){
-        g->nodes[i] = NULL;
+Graph::Graph(size_t _size) {
+    size = _size;
+    nodes = (Node**) malloc(sizeof(Node*)*size);
+    for(size_t i = 0; i < size; ++i){
+        nodes[i] = NULL;
     }
+}
+
+Graph *create_graph(size_t size){
+    Graph* g = new Graph(size);
     return g;
 }
 
+Graph::~Graph() {
+    for (size_t i = 0; i < this->size; i++) {
+        delete this->nodes[i];
+    }
+}
+
 void free_graph(Graph* g){
-   
+   delete g;
+}
+
+Node::Node(int _id, float _weight, Node *_next) {
+    id = _id;
+    weight = _weight;
+    next = _next;
 }
 
 Node *create_node(int id, float weight, Node* next){
-    Node* n = (Node*) malloc(sizeof(Node));
-    n->id = id;
-    n->weight = weight;
-    n->next = next;
+    Node *n = new Node(id, weight, next);
     return n;
+}
+
+Node::~Node() {
+    if (this->next) {
+        delete this->next;
+    }
 }
 
 void free_node(Node* n){
     if(n != NULL){
-        free(n);
+        delete n;
     }
 }
 
-int insert_edge(Graph* g, int n1, int n2, float weight){
+int Graph::insertEdge(int n1, int n2, float weight) {
     Node* n;
     Node* w;
-    if(exists_edge(g, n1, n2) == 0) {
-        if(n1 < g->size && n2 < g->size) {
+    if(exists_edge(this, n1, n2) == 0) {
+        if(n1 < this->size && n2 < this->size) {
         
             // essa solução tem maior custo, mas os vérticies aparecem na ordem de inserção. 
             // a solução comentada abaixo é mais simples, mas os vertices ficam na ordem reversa.
             n = create_node(n2, weight, NULL);
-            if(g->nodes[n1] == NULL){
-                g->nodes[n1] = n;
+            if(this->nodes[n1] == NULL){
+                this->nodes[n1] = n;
             }else{
-                for(w=g->nodes[n1]; w->next != NULL; w = w->next);
+                for(w=this->nodes[n1]; w->next != NULL; w = w->next);
                 w->next = n;
             }
             /*
-            n = create_node(n2, weight, g->nodes[n1]);
-            g->nodes[n1] = n;
+            n = create_node(n2, weight, this->nodes[n1]);
+            this->nodes[n1] = n;
             */
         }
         return 1;
     }
     return 0;
 }
-int remove_edge(Graph* g, int n1, int n2){
+
+int insert_edge(Graph* g, int n1, int n2, float weight){
+    return g->insertEdge(n1, n2, weight);
+}
+
+int Graph::removeEdge(int n1, int n2) {
     Node* n;
     Node* prev = NULL;
-    for(n=g->nodes[n1]; n!= NULL; n= n->next){
+    for(n=this->nodes[n1]; n!= NULL; n= n->next){
         if(n->id == n2) {
             if(prev == NULL){
-                g->nodes[n1] = n->next;
+                this->nodes[n1] = n->next;
             }else{
                 prev->next = n->next;
             }
@@ -71,10 +93,14 @@ int remove_edge(Graph* g, int n1, int n2){
     return 0;
 }
 
-int exists_edge(Graph* g, int n1, int n2){
+int remove_edge(Graph* g, int n1, int n2) {
+    return g->removeEdge(n1, n2);
+}
+
+int Graph::existsEdge(int n1, int n2) {
     Node* n;
-    if(n1 < g->size && n2 < g->size) {
-        for(n = g->nodes[n1]; n!=NULL; n = n->next){
+    if(n1 < this->size && n2 < this->size) {
+        for(n = this->nodes[n1]; n!=NULL; n = n->next){
              if(n->id == n2){
                 return 1;
             }
@@ -83,25 +109,37 @@ int exists_edge(Graph* g, int n1, int n2){
     return 0;
 }
 
-Node* adjacent_edges(Graph* g, int n){
-    if(n < g->size) {
-        return g->nodes[n];
+int exists_edge(Graph* g, int n1, int n2){
+    return g->existsEdge(n1, n2);
+}
+
+Node *Graph::adjacentEdges(int n) {
+    if(n < this->size) {
+        return this->nodes[n];
     }
     return NULL;
 }
 
-void print_graph(Graph* g){
+Node* adjacent_edges(Graph* g, int n){
+    return g->adjacentEdges(n);
+}
+
+void Graph::print() {
     int i;
     Node* n;
-    for(i=0; i<g->size; ++i){
-        if(g->nodes[i] != NULL){
+    for(i=0; i<this->size; ++i){
+        if(this->nodes[i] != NULL){
             printf("#%d: ", i);
-            for(n = g->nodes[i]; n!=NULL; n=n->next){
+            for(n = this->nodes[i]; n!=NULL; n=n->next){
                        printf("%d(%.2f) ", n->id, n->weight);
             }
             printf("\n");
         }
     }
+}
+
+void print_graph(Graph* g){
+    g->print();
 }
 
 Graph* create_demo_graph(){
