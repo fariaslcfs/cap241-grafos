@@ -8,8 +8,8 @@
 void topo_order(Graph *g, int i, std::vector<bool> &visited, std::stack<int> &topo) {
     if (! visited[i]) { //Se o vértice ainda não foi visitado
         visited[i] = true; //marque-o como visitado
-        if (g->nodes[i] != NULL) { // e se houverem vértices adjascentes
-            Node *n = g->nodes[i];
+        if (g->getNode(i) != NULL) { // e se houverem vértices adjascentes
+            Node *n = g->getNode(i);
             while (n != NULL) {
                 topo_order(g, n->getId(), visited, topo); //realize a ordenação topológica para os vértices adjascentes primeiro
                 n = n->getNext(); //próximo vértice adjacente
@@ -26,12 +26,12 @@ Realiza a ordenação topológica usando um algoritmo de busca em profundidade r
 std::stack<int> graph_topological_order(Graph *g) {
     std::vector<bool> visited; //Vértices já visitados.
     std::stack<int> topo; //Pilha com a ordenação topológica
-    visited.resize(g->size, false); //Inicializa o vetor de vértices visitados com false
+    visited.resize(g->getSize(), false); //Inicializa o vetor de vértices visitados com false
 
     /*
     Para cada vértice da lista de adjacências...
     */
-    for (int i = 0; i < g->size; ++i) {
+    for (int i = 0; i < g->getSize(); ++i) {
         topo_order(g, i, visited, topo);
     }
     return topo;

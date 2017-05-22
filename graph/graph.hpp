@@ -17,8 +17,12 @@ class Graph {
     Node *adjacentEdges(int n);
     void print();
 
-    Node** nodes;
+    size_t getSize() { return this->size; };
+    Node* getNode(int i) { return this->nodes[i]; };
+
+    private:
     size_t size;
+    Node** nodes;
 };
 
 Graph::Graph(size_t size) {

@@ -25,11 +25,11 @@ std::vector<std::vector<int>> graph_connected_components(Graph *g) {
     std::map<int, bool> visited;
     
     //Marca todos os vértices como não visitados.
-    for(int i=0; i < g->size; ++i){
+    for(int i=0; i < g->getSize(); ++i){
         visited[i] = false;
     }
     //Para cada vértice de origem do grafo faça...
-    for (int u = 0; u < g->size; ++u) {
+    for (int u = 0; u < g->getSize(); ++u) {
         if (!visited[u]) { //Se o vértice não tiver sido visitado,
             std::vector<int> component; //crie um novo componente conectado,
             component.push_back(u); //adicione esse vértice ao componente conectado
@@ -39,7 +39,7 @@ std::vector<std::vector<int>> graph_connected_components(Graph *g) {
             while(!q.empty()){
                 v = q.front();
                 q.pop();
-                for(w=g->nodes[v]; w != NULL; w = w->getNext()){
+                for(w=g->getNode(v); w != NULL; w = w->getNext()){
                     if (visited[w->getId()] == false){
                         component.push_back(w->getId()); //Adicione o vértice encontrado na busca em largura ao componente conectado
                         visited[w->getId()] = true; //Marque-o como visitado para NÃO iniciar uma nova busca por componentes a partir dele
