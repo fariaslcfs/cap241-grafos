@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]){
     size_t i, j;
-    graph *g = create_demo_graph();
+    Graph *g = create_demo_graph();
     int *vet;
     
     for(i=0; i<g->size; ++i){

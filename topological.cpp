@@ -8,7 +8,7 @@
 
 int main(){
 
-    graph *g = create_graph(8);
+    Graph *g = create_graph(8);
     
     insert_edge(g, 0, 1, 1.);
     insert_edge(g, 2, 6, 1.);

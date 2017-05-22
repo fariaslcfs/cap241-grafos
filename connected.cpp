@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-graph* graph_fully_connected() {
-    graph *g = create_graph(9);
+Graph* graph_fully_connected() {
+    Graph *g = create_graph(9);
     
     insert_edge(g, 0, 1, 1.);
     insert_edge(g, 1, 2, 1.);
@@ -19,8 +19,8 @@ graph* graph_fully_connected() {
     return g;
 }
 
-graph* graph_with_3_components() {
-    graph *g = create_graph(9);
+Graph* graph_with_3_components() {
+    Graph *g = create_graph(9);
     
     insert_edge(g, 0, 1, 1.);
     insert_edge(g, 1, 2, 1.);
@@ -32,7 +32,7 @@ graph* graph_with_3_components() {
     return g;
 }
 
-void print_components(graph *g) {
+void print_components(Graph *g) {
     std::vector<std::vector<int>> components = graph_connected_components(g);
 
     for (int c = 0; c < components.size(); ++c) {
@@ -49,12 +49,12 @@ void print_components(graph *g) {
 }
 
 int main(){
-    graph *g1comp = graph_fully_connected();
+    Graph *g1comp = graph_fully_connected();
     
     std::cout << "\nExemplo de grafo totalmente conectado (1 componente):" << std::endl;
     print_components(g1comp);
 
-    graph *g3comp = graph_with_3_components();
+    Graph *g3comp = graph_with_3_components();
     std::cout << "\nExemplo de grafo com 3 componentes:" << std::endl;
     print_components(g3comp);
 

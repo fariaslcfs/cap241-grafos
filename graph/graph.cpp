@@ -1,8 +1,8 @@
 #include "graph.hpp"
 
-graph* create_graph(size_t size){
+Graph* create_graph(size_t size){
     size_t i;
-    graph* g = (graph*) malloc(sizeof(graph));
+    Graph* g = (Graph*) malloc(sizeof(Graph));
     g->size = size;
     g->nodes = (Node**) malloc(sizeof(Node*)*size);
     for(i=0; i<size; ++i){
@@ -11,7 +11,7 @@ graph* create_graph(size_t size){
     return g;
 }
 
-void free_graph(graph* g){
+void free_graph(Graph* g){
    
 }
 
@@ -29,7 +29,7 @@ void free_node(Node* n){
     }
 }
 
-int insert_edge(graph* g, int n1, int n2, float weight){
+int insert_edge(Graph* g, int n1, int n2, float weight){
     Node* n;
     Node* w;
     if(exists_edge(g, n1, n2) == 0) {
@@ -53,7 +53,7 @@ int insert_edge(graph* g, int n1, int n2, float weight){
     }
     return 0;
 }
-int remove_edge(graph* g, int n1, int n2){
+int remove_edge(Graph* g, int n1, int n2){
     Node* n;
     Node* prev = NULL;
     for(n=g->nodes[n1]; n!= NULL; n= n->next){
@@ -71,7 +71,7 @@ int remove_edge(graph* g, int n1, int n2){
     return 0;
 }
 
-int exists_edge(graph* g, int n1, int n2){
+int exists_edge(Graph* g, int n1, int n2){
     Node* n;
     if(n1 < g->size && n2 < g->size) {
         for(n = g->nodes[n1]; n!=NULL; n = n->next){
@@ -83,14 +83,14 @@ int exists_edge(graph* g, int n1, int n2){
     return 0;
 }
 
-Node* adjacent_edges(graph* g, int n){
+Node* adjacent_edges(Graph* g, int n){
     if(n < g->size) {
         return g->nodes[n];
     }
     return NULL;
 }
 
-void print_graph(graph* g){
+void print_graph(Graph* g){
     int i;
     Node* n;
     for(i=0; i<g->size; ++i){
@@ -104,8 +104,8 @@ void print_graph(graph* g){
     }
 }
 
-graph* create_demo_graph(){
-    graph *g = create_graph(9);
+Graph* create_demo_graph(){
+    Graph *g = create_graph(9);
     
     insert_edge(g, 0, 1, 1.);
     insert_edge(g, 1, 2, 1.);

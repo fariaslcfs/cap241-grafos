@@ -1,10 +1,10 @@
 #include "graph_search.hpp"
 
 // funcao auxiliar de reach
-int __reach(graph *g, int u, int v, int* visited);
+int __reach(Graph *g, int u, int v, int* visited);
 
 
-int reach(graph *g, int u, int v){
+int reach(Graph *g, int u, int v){
     Node *w;
     int *visited;
     size_t i;
@@ -25,7 +25,7 @@ int reach(graph *g, int u, int v){
     return 0;
 }
 
-int __reach(graph *g, int u, int v, int* visited){
+int __reach(Graph *g, int u, int v, int* visited){
     Node *w;
     visited[u] = 1;
 
@@ -46,9 +46,9 @@ int __reach(graph *g, int u, int v, int* visited){
 }
 
 // funcao auxiliar de dfs
-void __dfs(graph *g, int u, int *visited, int *count);
+void __dfs(Graph *g, int u, int *visited, int *count);
 
-int *dfs(graph *g, int u){
+int *dfs(Graph *g, int u){
     Node *w;
     int *visited;
     size_t i;
@@ -71,7 +71,7 @@ int *dfs(graph *g, int u){
     return visited;
 }
 
-void __dfs(graph *g, int u, int* visited, int *count){
+void __dfs(Graph *g, int u, int* visited, int *count){
     Node *w;
     visited[u] = (*count);
     *count = (*count)+1;
@@ -120,7 +120,7 @@ int queue_remove(queue *q){
 }
 
 
-int *bfs(graph *g, int u){
+int *bfs(Graph *g, int u){
     int *visited;
     size_t i;
     int count = 0;

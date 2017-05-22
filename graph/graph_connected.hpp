@@ -17,7 +17,7 @@ A função retorna um vetor de vetores de inteiro, onde cada inteiro representa 
 vetor um componente conectado.
 
 */
-std::vector<std::vector<int>> graph_connected_components(graph *g) {
+std::vector<std::vector<int>> graph_connected_components(Graph *g) {
     int v;
     std::vector<std::vector<int>> components;
     Node *w;

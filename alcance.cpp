@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]){
 
-    graph *g = create_demo_graph();
+    Graph *g = create_demo_graph();
     int u,v;
 
     for(u=0; u<9; ++u){
