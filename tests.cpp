@@ -81,7 +81,7 @@ void g_topological()
 
 int main()
 {
-	//alcance();
+	alcance();
 	std::cout << std::endl;
 
 	bfs();
@@ -91,6 +91,9 @@ int main()
 	std::cout << std::endl;
 
 	g_f_connected();
+	std::cout << std::endl;
+
+	g_topological();
 	std::cout << std::endl;
 
 	return 0;
