@@ -94,13 +94,13 @@ void print_graph(graph* g){
     int i;
     node* n;
     for(i=0; i<g->size; ++i){
+        printf("#%d: ", i);
         if(g->nodes[i] != NULL){
-            printf("#%d: ", i);
             for(n = g->nodes[i]; n!=NULL; n=n->next){
                        printf("%d(%.2f) ", n->id, n->weight);
             }
-            printf("\n");
         }
+        printf("\n");
     }
 }
 
