@@ -13,7 +13,7 @@ int main(){
     insert_edge(g, 0, 1, 1.);
     insert_edge(g, 2, 6, 1.);
     insert_edge(g, 4, 6, 1.);
-
+    g->print();
     std::stack<int> t = graph_topological_order(g);
 
     while (!t.empty()) {

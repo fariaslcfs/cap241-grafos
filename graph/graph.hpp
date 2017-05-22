@@ -1,9 +1,7 @@
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
 
 #include "node.hpp"
 
@@ -106,13 +104,13 @@ void Graph::print() {
     int i;
     Node* n;
     for(i=0; i<this->size; ++i){
+        std::cout << "#" << i << " ";
         if(this->nodes[i] != NULL){
-            printf("#%d: ", i);
             for(n = this->nodes[i]; n!=NULL; n=n->getNext()){
-                       printf("%d(%.2f) ", n->getId(), n->getWeight());
+                std::cout << n->getId() << "(" << n->getWeight() << ") ";
             }
-            printf("\n");
         }
+        std::cout << std::endl;
     }
 }
 
