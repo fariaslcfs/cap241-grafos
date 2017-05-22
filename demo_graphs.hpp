@@ -13,6 +13,19 @@ namespace demo
         return g;
     }
 
+    Graph *cyclic_4nodes_6edges() {
+        Graph *g = new Graph(4);
+    
+        g->insertEdge(0, 1, 1.);
+        g->insertEdge(0, 2, 1.);
+        g->insertEdge(1, 2, 1.);
+        g->insertEdge(2, 0, 1.);
+        g->insertEdge(2, 3, 1.);
+        g->insertEdge(3, 4, 1.);
+
+        return g;
+    }
+
     Graph* fully_connected_9nodes_9edges() {
         Graph *g = new Graph(9);
         

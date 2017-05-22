@@ -86,4 +86,38 @@ std::vector<std::vector<int>> graph_connected_components(Graph *g) {
     return components;
 }
 
+bool is_cyclic(Graph *g, size_t i, std::vector<bool> &visited, std::vector<bool> &recStack) {
+    if (!visited[i]) {
+        visited[i] = true;
+        recStack[i] = true;
+
+        Node *n = g->getNode(i);
+        while (n != NULL) {
+            if (!visited[n->getId()] && is_cyclic(g, n->getId(), visited, recStack)) {
+                return true;
+            } else if (recStack[n->getId()]) {
+                return true;
+            }
+            n = n->getNext();
+        }
+    }
+    recStack[i] = false;
+    return false;
+}
+
+bool graph_is_cyclic(Graph *g) {
+    std::vector<bool> visited;
+    std::vector<bool> recStack;
+
+    visited.resize(g->getSize(), false);
+    recStack.resize(g->getSize(), false);
+
+    for (size_t i = 0; i < g->getSize(); ++i) {
+        if (is_cyclic(g, i, visited, recStack)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 #endif //__GRAPH_ALGORITHMS_HPP__
