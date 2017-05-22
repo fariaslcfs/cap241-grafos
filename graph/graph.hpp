@@ -5,28 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-class Node 
-{
-    public:
-    Node(int id, float weight, Node *next);
-    ~Node();
-
-    Node *next;
-    int id;
-    float weight;
-};
-
-Node::Node(int id, float weight, Node *next) {
-    this->id = id;
-    this->weight = weight;
-    this->next = next;
-}
-
-Node::~Node() {
-    if (this->next) {
-        delete this->next;
-    }
-}
+#include "node.hpp"
 
 class Graph {
     public:
@@ -68,8 +47,8 @@ int Graph::insertEdge(int n1, int n2, float weight) {
             if(this->nodes[n1] == NULL){
                 this->nodes[n1] = n;
             }else{
-                for(w=this->nodes[n1]; w->next != NULL; w = w->next);
-                w->next = n;
+                for(w=this->nodes[n1]; w->getNext() != NULL; w = w->getNext());
+                w->setNext(n);
             }
             /*
             n = create_node(n2, weight, this->nodes[n1]);
@@ -84,14 +63,14 @@ int Graph::insertEdge(int n1, int n2, float weight) {
 int Graph::removeEdge(int n1, int n2) {
     Node* n;
     Node* prev = NULL;
-    for(n=this->nodes[n1]; n!= NULL; n= n->next){
-        if(n->id == n2) {
+    for(n=this->nodes[n1]; n!= NULL; n= n->getNext()){
+        if(n->getId() == n2) {
             if(prev == NULL){
-                this->nodes[n1] = n->next;
+                this->nodes[n1] = n->getNext();
             }else{
-                prev->next = n->next;
+                prev->setNext(n->getNext());
             }
-            n->next = NULL;
+            n->setNext(NULL);
             delete n;
             return 1;
         }
@@ -103,8 +82,8 @@ int Graph::removeEdge(int n1, int n2) {
 int Graph::existsEdge(int n1, int n2) {
     Node* n;
     if(n1 < this->size && n2 < this->size) {
-        for(n = this->nodes[n1]; n!=NULL; n = n->next){
-             if(n->id == n2){
+        for(n = this->nodes[n1]; n!=NULL; n = n->getNext()){
+             if(n->getId() == n2){
                 return 1;
             }
         }
@@ -125,8 +104,8 @@ void Graph::print() {
     for(i=0; i<this->size; ++i){
         if(this->nodes[i] != NULL){
             printf("#%d: ", i);
-            for(n = this->nodes[i]; n!=NULL; n=n->next){
-                       printf("%d(%.2f) ", n->id, n->weight);
+            for(n = this->nodes[i]; n!=NULL; n=n->getNext()){
+                       printf("%d(%.2f) ", n->getId(), n->getWeight());
             }
             printf("\n");
         }

@@ -39,11 +39,11 @@ std::vector<std::vector<int>> graph_connected_components(Graph *g) {
             while(!q.empty()){
                 v = q.front();
                 q.pop();
-                for(w=g->nodes[v]; w != NULL; w = w->next){
-                    if (visited[w->id] == false){
-                        component.push_back(w->id); //Adicione o vértice encontrado na busca em largura ao componente conectado
-                        visited[w->id] = true; //Marque-o como visitado para NÃO iniciar uma nova busca por componentes a partir dele
-                        q.push(w->id); //Continue navegando por este componentes conectado a partir deste vértice
+                for(w=g->nodes[v]; w != NULL; w = w->getNext()){
+                    if (visited[w->getId()] == false){
+                        component.push_back(w->getId()); //Adicione o vértice encontrado na busca em largura ao componente conectado
+                        visited[w->getId()] = true; //Marque-o como visitado para NÃO iniciar uma nova busca por componentes a partir dele
+                        q.push(w->getId()); //Continue navegando por este componentes conectado a partir deste vértice
                     }
                 }
             }
