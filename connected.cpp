@@ -1,5 +1,5 @@
 #include "graph/graph.hpp"
-#include "graph/graph_connected.hpp"
+#include "graph/graph_algorithms.hpp"
 
 #include <iostream>
 

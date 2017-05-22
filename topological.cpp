@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph/graph.hpp"
-#include "graph/graph_topological.hpp"
+#include "graph/graph_algorithms.hpp"
 
 #include <string>
 #include <iostream>
