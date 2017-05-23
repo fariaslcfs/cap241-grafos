@@ -5,8 +5,54 @@
 #include <stack>
 #include <map>
 #include <queue>
+#include <stdexcept>
 
 #include "graph.hpp"
+
+bool is_cyclic(Graph *g, size_t i, std::vector<bool> &visited, std::vector<bool> &antecedents) {
+    //Se o nó não foi visitado anteriormente 
+    if (!visited[i]) {
+        //Defina-o como visitado
+        visited[i] = true;
+        //Marque o nó como antecedente na árvore de profundidade pesquisada atualmente
+        antecedents[i] = true;
+
+        //Pegue o primeiro nó adjacente
+        Node *n = g->getNode(i);
+        while (n != NULL) { //Se o nó adjacente existir...
+            //Se o nó adjacente NÃO tiver sido visitado, verifique se o nó atual é descendente do nó adjacente
+            if (!visited[n->getId()] && is_cyclic(g, n->getId(), visited, antecedents)) {
+                return true;
+            //Se o nó adjacente (descendente) for também antecedente deste
+            } else if (antecedents[n->getId()]) {
+                return true;
+            }
+            //Próximo nó adjacente
+            n = n->getNext();
+        }
+    }
+    //Se o ciclo não foi encontrado remova o nó atual do vetor de nós antecedentes.
+    antecedents[i] = false;
+    return false;
+}
+
+bool graph_is_cyclic(Graph *g) {
+    std::vector<bool> visited;
+    std::vector<bool> antecedents;
+
+    visited.resize(g->getSize(), false);
+    antecedents.resize(g->getSize(), false);
+
+    /*
+    Para cada vértice do grafo, verifica se possui ciclos.
+    */
+    for (size_t i = 0; i < g->getSize(); ++i) {
+        if (is_cyclic(g, i, visited, antecedents)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void topo_order(Graph *g, int i, std::vector<bool> &visited, std::stack<int> &topo) {
     if (! visited[i]) { //Se o vértice ainda não foi visitado
@@ -27,6 +73,9 @@ void topo_order(Graph *g, int i, std::vector<bool> &visited, std::stack<int> &to
 Realiza a ordenação topológica usando um algoritmo de busca em profundidade recursivo.
 */
 std::stack<int> graph_topological_order(Graph *g) {
+    if (graph_is_cyclic(g)) {
+        throw std::invalid_argument("A cyclic graph can't be topologically sorted!");
+    }
     std::vector<bool> visited; //Vértices já visitados.
     std::stack<int> topo; //Pilha com a ordenação topológica
     visited.resize(g->getSize(), false); //Inicializa o vetor de vértices visitados com false
@@ -84,51 +133,6 @@ std::vector<std::vector<int>> graph_connected_components(Graph *g) {
         }
     }
     return components;
-}
-
-bool is_cyclic(Graph *g, size_t i, std::vector<bool> &visited, std::vector<bool> &antecedents) {
-    //Se o nó não foi visitado anteriormente 
-    if (!visited[i]) {
-        //Defina-o como visitado
-        visited[i] = true;
-        //Marque o nó como antecedente na árvore de profundidade pesquisada atualmente
-        antecedents[i] = true;
-
-        //Pegue o primeiro nó adjacente
-        Node *n = g->getNode(i);
-        while (n != NULL) { //Se o nó adjacente existir...
-            //Se o nó adjacente NÃO tiver sido visitado, verifique se o nó atual é descendente do nó adjacente
-            if (!visited[n->getId()] && is_cyclic(g, n->getId(), visited, antecedents)) {
-                return true;
-            //Se o nó adjacente (descendente) for também antecedente deste
-            } else if (antecedents[n->getId()]) {
-                return true;
-            }
-            //Próximo nó adjacente
-            n = n->getNext();
-        }
-    }
-    //Se o ciclo não foi encontrado remova o nó atual do vetor de nós antecedentes.
-    antecedents[i] = false;
-    return false;
-}
-
-bool graph_is_cyclic(Graph *g) {
-    std::vector<bool> visited;
-    std::vector<bool> antecedents;
-
-    visited.resize(g->getSize(), false);
-    antecedents.resize(g->getSize(), false);
-
-    /*
-    Para cada vértice do grafo, verifica se possui ciclos.
-    */
-    for (size_t i = 0; i < g->getSize(); ++i) {
-        if (is_cyclic(g, i, visited, antecedents)) {
-            return true;
-        }
-    }
-    return false;
 }
 
 #endif //__GRAPH_ALGORITHMS_HPP__
