@@ -2,6 +2,7 @@
 #define __GRAPH_H__
 
 #include <iostream>
+#include <string>
 
 #include "node.hpp"
 
@@ -17,8 +18,12 @@ class Graph {
 
     size_t getSize() { return this->size; };
     Node* getNode(int i) { return this->nodes[i]; };
+    
+    void setPrettyPrint(std::string pp) { this->prettyPrint = pp; };
+    std::string getPrettyPrint() { return this->prettyPrint; }
 
     private:
+    std::string prettyPrint;
     size_t size;
     Node** nodes;
 };
