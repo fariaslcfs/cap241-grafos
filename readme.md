@@ -7,3 +7,6 @@ g++ -std=c++11 connected.cpp -o connected
 
 ### Ordenação Topológica
 g++ -std=c++11 topological.cpp -o topological
+
+### Busca por ciclos
+g++ -std=c++11 cycles.cpp -o cycles
