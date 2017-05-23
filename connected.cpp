@@ -22,14 +22,15 @@ void print_components(Graph *g) {
 }
 
 int main(){
-    Graph *g = demo::fully_connected_9nodes_9edges();
-    
-    std::cout << "\nExemplo de grafo totalmente conectado (1 componente):" << std::endl;
+    std::cout << std::endl << " --- Exemplo 1 - Grafo com 2 componentes ---" << std::endl << std::endl;
+    Graph *g = demo::acyclic_4nodes2components();
+    std::cout << g->getPrettyPrint() << std::endl;
     print_components(g);
     delete g;
 
-    g = demo::disconnected_3components_9nodes_6edges();
-    std::cout << "\nExemplo de grafo com 3 componentes:" << std::endl;
+    std::cout << std::endl << " --- Exemplo 2 - Grafo com 1 componentes ---" << std::endl << std::endl;
+    g = demo::acyclic_4nodes();
+    std::cout << g->getPrettyPrint() << std::endl;
     print_components(g);
     delete g;
 

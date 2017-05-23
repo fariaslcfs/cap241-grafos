@@ -23,6 +23,25 @@ namespace demo
         return g;
     }
 
+    Graph *acyclic_5nodes() {
+        std::stringstream pp;
+        pp << "    1     \n";
+        pp << "  /       \n";
+        pp << "0 ----- 4  \n";
+        pp << "  \\   /   \n";
+        pp << "    2 - 3 \n";
+
+        Graph *g = new Graph(5);
+        g->setPrettyPrint(pp.str());
+        g->insertEdge(0, 1, 1.);
+        g->insertEdge(0, 2, 1.);
+        g->insertEdge(2, 3, 1.);
+        g->insertEdge(2, 4, 1.);
+        g->insertEdge(0, 4, 1.);
+
+        return g;
+    }
+
     Graph *cyclic_4nodes() {
         std::stringstream pp;
         pp << "    1      \n";
@@ -66,57 +85,23 @@ namespace demo
         return g;
     }
 
-    Graph *acyclic_8nodes_3edges() {
-        Graph *g = new Graph(8);
-    
-        g->insertEdge(0, 1, 1.);
-        g->insertEdge(2, 6, 1.);
-        g->insertEdge(4, 6, 1.);
+    Graph *acyclic_4nodes2components() {
+        std::stringstream pp;
+        pp << "    1     \n";
+        pp << "          \n";
+        pp << "0         \n";
+        pp << "  \\      \n";
+        pp << "    2 - 3 \n";
 
-        return g;
-    }
-
-    Graph *cyclic_4nodes_6edges() {
         Graph *g = new Graph(4);
-    
-        g->insertEdge(0, 1, 1.);
+        g->setPrettyPrint(pp.str());
+        
         g->insertEdge(0, 2, 1.);
-        g->insertEdge(1, 2, 1.);
-        g->insertEdge(2, 0, 1.);
         g->insertEdge(2, 3, 1.);
-        g->insertEdge(3, 4, 1.);
 
         return g;
     }
 
-    Graph* fully_connected_9nodes_9edges() {
-        Graph *g = new Graph(9);
-        
-        g->insertEdge(0, 1, 1.);
-        g->insertEdge(1, 2, 1.);
-        g->insertEdge(2, 3, 1.);
-        g->insertEdge(1, 4, 1.);
-        g->insertEdge(4, 5, 1.);
-        g->insertEdge(0, 5, 1.);
-        g->insertEdge(0, 6, 1.);
-        g->insertEdge(6, 7, 1.);
-        g->insertEdge(6, 8, 1.);
-        
-        return g;
-    }
-
-    Graph* disconnected_3components_9nodes_6edges() {
-        Graph *g = new Graph(9);
-        
-        g->insertEdge(0, 1, 1.);
-        g->insertEdge(1, 2, 1.);
-        g->insertEdge(2, 3, 1.);
-        g->insertEdge(1, 4, 1.);
-        g->insertEdge(6, 7, 1.);
-        g->insertEdge(6, 8, 1.);
-        
-        return g;
-    }
 }
 
 #endif //__DEMO_GRAPHS_H__
